@@ -43,13 +43,7 @@ const Landing = () => {
             >
               Sign In
             </Button>
-            <Button
-              onClick={() => navigate("/sign-up")}
-              variant="outline"
-              className="border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg text-lg"
-            >
-              Sign Up
-            </Button>
+           
           </motion.div>
         </motion.div>
 

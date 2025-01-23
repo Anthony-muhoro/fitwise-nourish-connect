@@ -1,15 +1,19 @@
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { useUser } from "@clerk/clerk-react";
 
 const Profile = () => {
+  const { user } = useUser();
+
   const userData = {
-    name: "Sarah Johnson",
-    age: 28,
+    age: 28, // Placeholder, replace with actual user data if available
     weight: 65,
     height: 168,
     goals: ["Reduce blood pressure", "Maintain healthy weight", "Improve fitness"],
     progress: 75,
   };
+
+  const userName = user?.firstName || "Guest";
 
   return (
     <div className="space-y-6">
@@ -21,10 +25,10 @@ const Profile = () => {
       <Card className="p-6 space-y-6 animate-fade-up">
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center">
-            <span className="text-xl font-semibold">{userData.name.charAt(0)}</span>
+            <span className="text-xl font-semibold">{userName.charAt(0)}</span>
           </div>
           <div>
-            <h2 className="text-xl font-semibold">{userData.name}</h2>
+            <h2 className="text-xl font-semibold">{userName}</h2>
             <p className="text-muted-foreground">{userData.age} years old</p>
           </div>
         </div>
