@@ -8,14 +8,14 @@ import Layout from "./components/Layout";
 import Profile from "./pages/Profile";
 import MealPlans from "./pages/MealPlans";
 import Coaches from "./pages/Coaches";
+import Landing from "./pages/Landing";
 
-// Your Clerk Publishable Key
 const CLERK_PUBLISHABLE_KEY = "pk_test_Z2VuZXJhbC1jb2JyYS04Ny5jbGVyay5hY2NvdW50cy5kZXYk";
 
 const queryClient = new QueryClient();
 
-// Protected Route component
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+// Protected Layout component
+const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   const { isSignedIn, isLoaded } = useAuth();
   
   if (!isLoaded) {
@@ -23,10 +23,10 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   }
   
   if (!isSignedIn) {
-    return <Navigate to="/sign-in" />;
+    return <Navigate to="/" />;
   }
 
-  return <>{children}</>;
+  return <Layout>{children}</Layout>;
 };
 
 const App = () => (
@@ -34,36 +34,29 @@ const App = () => (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          <Layout>
-            <Routes>
-              <Route path="/sign-in/*" element={<SignIn routing="path" path="/sign-in" />} />
-              <Route path="/sign-up/*" element={<SignUp routing="path" path="/sign-up" />} />
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/meal-plans"
-                element={
-                  <ProtectedRoute>
-                    <MealPlans />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/coaches"
-                element={
-                  <ProtectedRoute>
-                    <Coaches />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          </Layout>
+          <Routes>
+            {/* Public routes */}
+            <Route path="/" element={<Landing />} />
+            <Route path="/sign-in/*" element={<SignIn routing="path" path="/sign-in" />} />
+            <Route path="/sign-up/*" element={<SignUp routing="path" path="/sign-up" />} />
+            
+            {/* Protected routes */}
+            <Route path="/dashboard" element={
+              <ProtectedLayout>
+                <Profile />
+              </ProtectedLayout>
+            } />
+            <Route path="/meal-plans" element={
+              <ProtectedLayout>
+                <MealPlans />
+              </ProtectedLayout>
+            } />
+            <Route path="/coaches" element={
+              <ProtectedLayout>
+                <Coaches />
+              </ProtectedLayout>
+            } />
+          </Routes>
           <Toaster />
           <Sonner />
         </TooltipProvider>

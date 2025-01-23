@@ -21,30 +21,32 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const { user } = useUser();
 
   const navigation = [
-    { name: 'Profile', href: '/', icon: Home },
+    { name: 'Dashboard', href: '/dashboard', icon: Home },
     { name: 'Meal Plans', href: '/meal-plans', icon: Calendar },
     { name: 'Coaches', href: '/coaches', icon: Users },
   ];
 
   const handleSignOut = async () => {
     await signOut();
-    navigate('/sign-in');
+    navigate('/');
   };
 
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
-        <Sidebar>
+        <Sidebar className="bg-blue-50">
           <SidebarContent>
             <div className="px-3 py-4">
-              <h2 className="mb-4 px-4 text-lg font-semibold">Fitness Tracker</h2>
+              <h2 className="mb-4 px-4 text-lg font-semibold text-blue-900">FitWise Connect</h2>
               <SidebarMenu>
                 {navigation.map((item) => (
                   <SidebarMenuItem key={item.name}>
                     <SidebarMenuButton asChild>
                       <Link
                         to={item.href}
-                        className={location.pathname === item.href ? "text-accent" : ""}
+                        className={`${
+                          location.pathname === item.href ? "text-blue-600" : "text-blue-800"
+                        } hover:text-blue-600 transition-colors`}
                       >
                         <item.icon className="h-4 w-4" />
                         <span>{item.name}</span>
@@ -58,10 +60,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </Sidebar>
 
         <div className="flex-1">
-          {/* Top Bar */}
-          <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <header className="border-b bg-white shadow-sm">
             <div className="flex h-14 items-center px-4 justify-between">
-              <SidebarTrigger className="h-8 w-8" />
+              <SidebarTrigger className="h-8 w-8 text-blue-800" />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -81,7 +82,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate('/')}>
+                  <DropdownMenuItem onClick={() => navigate('/dashboard')}>
                     Profile Settings
                   </DropdownMenuItem>
                   <DropdownMenuItem>
@@ -97,7 +98,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             </div>
           </header>
 
-          {/* Main Content */}
           <main className="flex-1 space-y-4 p-4 md:p-8 pt-6">
             {children}
           </main>
