@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Calendar, Users } from 'lucide-react';
-import { SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
+import { SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarTrigger } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,7 +35,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     <SidebarMenuButton asChild>
                       <Link
                         to={item.href}
-                        className={location.pathname === item.href ? "text-primary" : ""}
+                        className={location.pathname === item.href ? "text-accent" : ""}
                       >
                         <item.icon className="h-4 w-4" />
                         <span>{item.name}</span>
@@ -52,7 +52,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           {/* Top Bar */}
           <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="flex h-14 items-center px-4 justify-between">
-              <div className="flex-1" />
+              <SidebarTrigger className="h-8 w-8" />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
