@@ -11,9 +11,9 @@ import Coaches from "./pages/Coaches";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <BrowserRouter>
+  <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
         <Layout>
           <Routes>
             <Route path="/" element={<Profile />} />
@@ -21,11 +21,11 @@ const App = () => (
             <Route path="/coaches" element={<Coaches />} />
           </Routes>
         </Layout>
-      </BrowserRouter>
-      <Toaster />
-      <Sonner />
-    </TooltipProvider>
-  </QueryClientProvider>
+        <Toaster />
+        <Sonner />
+      </TooltipProvider>
+    </QueryClientProvider>
+  </BrowserRouter>
 );
 
 export default App;
